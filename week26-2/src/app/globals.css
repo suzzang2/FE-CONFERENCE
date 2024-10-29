@@ -1,0 +1,93 @@
+html,
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
+    padding: 0 2rem;
+}
+
+body {
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+  margin: 30px;
+  padding: 30px;
+  border: 1px solid #ccc;
+  height: 90vh;
+}
+
+main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 18%;
+}
+
+#home, #notes {
+  font-size: 40px;
+  text-decoration: none;
+  color: black;
+}
+
+#home:hover, #notes:hover {
+  color: #f30071;
+}
+#home:active, #notes:active {
+  color: #9b0048;
+}
+
+/**/
+#titles{
+  text-decoration: none;
+  color: black;
+}
+#titles:hover{
+  color: #f30071;
+}
+#titles:active{
+  color: #9b0048;
+}
+
+#inputs{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#titleInput{
+  padding: 5px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+#contentInput{
+  padding: 5px;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 15px;
+}
+
+#createBtn{
+  padding: 5px;
+  width: 60%;
+  background-color: #f30071;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+}
+#createBtn:hover{
+  background-color: #9b0048;
+}
