@@ -16,6 +16,14 @@ import axios from "axios";
 
   // 숫자 문자열을 받아 합을 계산하는 함수
   export const calculateSum = (numbersString) => {
+    // 음수가 포함되어 있으면 에러
+    if (numbersString.includes("-")) {
+      throw new Error("음수는 계산할 수 없습니다.");
+    }
+    // 문자가 포함되어 있으면 에러
+    if (/[a-zA-Z]/.test(numbersString)) {
+      throw new Error("문자는 계산할 수 없습니다.");
+    }
     const numbersArray = numbersString.split(",").map(Number);
     return numbersArray.reduce((acc, num) => acc + num, 0);
   };
