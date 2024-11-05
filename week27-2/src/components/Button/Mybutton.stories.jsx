@@ -4,7 +4,7 @@ const meta = {
    title: 'MyComponent/MyButton',
    component: MyButton,
    argTypes: {
-      backgroundColor: { control: 'color' },
+      backgroundColor: { control: 'color' }, //색을 바꿔보면서 확인
    },
 };
 
