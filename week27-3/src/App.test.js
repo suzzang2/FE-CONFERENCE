@@ -9,6 +9,10 @@ describe("유저 이름 패치 기능", () => {
     axios.get.mockReset(); // 각 테스트 실행되기 전 axios mock 초기화
   });
 
+  test("ID 값으로 숫자가 아닌 값이 들어왔을 때 에러를 던지는지 검증", async () => {
+    await expect(fetchUserName("one")).rejects.toThrow();
+  });
+
   test("ID 값으로 유저이름 잘 가져오는지 검증", async () => {
     // axios의 응답을 모킹
     const mockData = { data: { name: "Leanne Graham" } };
@@ -24,6 +28,14 @@ describe("유저 이름 패치 기능", () => {
 });
 
 describe("덧셈 기능", () => {
+  test("음수값이 들어왔을 때 에러를 던지는지 검증", () => {
+    expect(() => calculateSum("-1,3,5")).toThrow();
+  });
+  
+  test("문자가 들어왔을 때 에러를 던지는지 검증", () => {
+    expect(() => calculateSum("1,3,one")).toThrow();
+  } );
+
   test("맞게 계산을 하는지 검증", () => {
     const result = calculateSum("4,5,9");
     expect(result).toBe(18); // 4 + 5 + 9 = 18
