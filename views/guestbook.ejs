@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>GuestBook</title>
+   <link rel="stylesheet" href="/guestbook.css" />
+</head>
+<body>
+   <div class="container">
+   <h1> suzzang's guestbook</h1>
+   <!-- 방명록 작성 폼 -->
+    <form action="guestbook" method="POST">
+      <input type="text" name="author" placeholder="writer" required/>
+      <textarea name="message" placeholder="content" required></textarea>
+      <button type="submit">submit</button>
+    </form>
+
+   <h2>guestbook list</h2>
+   <div class="entries">
+      <% entries.forEach(entry => { %>
+         <div class="entry">
+           <div class="entry-header">
+             <div class="author"><%= entry.author %></div>
+             <div class="date"><%= entry.createdAt.toLocaleString() %></div>
+           </div>
+           <div class="message"><%= entry.message %></div>
+         </div>
+         <% }) %>
+   </div>
+   </div>
+</body>
+</html>
