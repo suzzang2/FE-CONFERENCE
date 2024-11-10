@@ -1,33 +1,72 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-   <meta charset="UTF-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <title>GuestBook</title>
-   <link rel="stylesheet" href="/guestbook.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GuestBook</title>
+  <link rel="stylesheet" href="/guestbook.css" />
 </head>
 <body>
-   <div class="container">
-   <h1> suzzang's guestbook</h1>
-   <!-- 방명록 작성 폼 -->
+  <div class="container">
+    <h1> suzzang's guestbook</h1>
+    <!-- 방명록 작성 폼 -->
     <form action="guestbook" method="POST">
       <input type="text" name="author" placeholder="writer" required/>
       <textarea name="message" placeholder="content" required></textarea>
       <button type="submit">submit</button>
     </form>
 
-   <h2>guestbook list</h2>
-   <div class="entries">
+    <h2>guestbook list</h2>
+    <div class="entries">
       <% entries.forEach(entry => { %>
-         <div class="entry">
-           <div class="entry-header">
-             <div class="author"><%= entry.author %></div>
-             <div class="date"><%= entry.createdAt.toLocaleString() %></div>
-           </div>
-           <div class="message"><%= entry.message %></div>
-         </div>
-         <% }) %>
-   </div>
-   </div>
+        <!-- 보기 모드 -->
+        <div class="entry" id="<%= entry._id %>">
+          <div class="view-form">
+            <div class="entry-header">
+              <div class="author"><%= entry.author %></div>
+              <div class="date"><%= entry.createdAt.toLocaleString() %></div>
+            </div>
+            <div class="message"><%= entry.message %></div>
+            <div class="entry-buttons">
+              <button class="editBtn" data-id="<%= entry._id %>">Edit</button>
+              <button class="deleteBtn" data-id="<%= entry._id %>">Delete</button>
+            </div>
+          </div>
+
+          <!-- 수정 모드, 기본으로 안보임 -->
+          <div class="edit-form" style="display: none;">
+            <div class="entry-header">
+              <input class="author" value="<%= entry.author %>" />
+            </div>
+            <textarea class="message"><%= entry.message %></textarea>
+            <div class="entry-buttons">
+              <button onclick="toggleEditForm('<%= entry._id %>')">Cancel</button>
+              <button onclick="editEntry('<%= entry._id %>', this)">Save</button>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
 </body>
+<script type="module">
+  import { deleteEntry, editEntry, toggleEditForm } from '/manageEntry.js';
+
+  // deleteBtn 이벤트 리스너
+  document.querySelectorAll('.deleteBtn').forEach(button => {
+    button.addEventListener('click', () => {
+      const entryId = button.getAttribute('data-id');
+      deleteEntry(entryId);
+    });
+  });
+
+  // editBtn 클릭 시 수정 폼 토글
+  document.querySelectorAll('.editBtn').forEach(button => {
+    button.addEventListener('click', () => {
+      const entryId = button.getAttribute('data-id');
+      toggleEditForm(entryId);
+    });
+  });
+</script>
+
 </html>

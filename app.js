@@ -4,6 +4,7 @@ import guestbookRouter from './routes/guestbook.route.js' //js라고 꼭 붙여�
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import path from "path"
+import { fileURLToPath } from 'url';
 
 dotenv.config(); // "환경변수들을 쓸 수 있게 해주겠다."
 
@@ -29,7 +30,10 @@ mongoose
 app.set("view engine", "ejs");
 app.use(express.json()); // json으로 언제 바꿔주는지 타이밍이 중요하다. 데이터가 아직 안 왔으면 못하기 때문.
 app.use(express.urlencoded({ extended: true })); 
-app.use(express.static(path.join(process.cwd(), "public")));
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, 'public')));
 
 //라우터
 app.get('/', (req, res) => { // '/' 경로로 들어오면

@@ -36,20 +36,38 @@ export const createEntry = async (req, res) => { //router에 쓸 거기 때문�
    }
 }
 
-export const deleteEntry = (req, res) => { //router에 쓸 거기 때문에, req&res를 받아줘야 함
-   try{
-      res.status(200).json({message : "Success deleting a entry"}) 
+export const deleteEntry = async (req, res) => {
+   const { id } = req.params;
+   try {
+      const deleteEntry = await GuestBook.findByIdAndDelete(id);
+      if (!deleteEntry) {
+         return res.status(404).json({ message: "ID does not exist." });
+      }
+      res.status(200).json({ message: "Successfully deleted entry" });
+   } catch (error) {
+      res.status(500).json({ message: "Error deleting entry" });
    }
-   catch{
-      res.status(500).json({message : "Error editing a entry"});
-   }
-}
+};
 
-export const editEntry = (req, res) => { //router에 쓸 거기 때문에, req&res를 받아줘야 함
-   try{
-      res.status(200).json({message : "Success editing a entry"}) 
+
+
+export const editEntry = async (req, res) => {
+   const { id } = req.params;
+   const { author, message } = req.body; // 업데이트할 필드들
+
+   try {
+      const updatedEntry = await GuestBook.findByIdAndUpdate(
+         id,
+         { author, message },
+         { new: true, runValidators: true } // 옵션: 업데이트된 문서를 반환하고, 유효성 검사 실행
+      );
+
+      if (!updatedEntry) {
+         return res.status(404).json({ message: "ID does not exist." });
+      }
+
+      res.status(200).json({ message: "Entry successfully updated", entry: updatedEntry });
+   } catch (error) {
+      res.status(500).json({ message: "Error updating entry", error });
    }
-   catch{
-      res.status(500).json({message : "Error editing a entry"});
-   }
-}
+};

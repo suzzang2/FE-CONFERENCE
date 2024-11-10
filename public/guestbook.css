@@ -77,3 +77,44 @@ font-weight: bold;
 color: #999;
 font-size: 0.9em;
 }
+
+/*suzzang*/
+.entry-buttons {
+display: flex;
+justify-content: space-between;
+
+}
+
+.editBtn {
+background-color: #007bff;
+color: #ffffff;
+border: none;
+cursor: pointer;
+font-size: 12px;
+
+width: 50px;
+text-align: center;
+margin-top: 10px;
+padding: 5px 0;
+border-radius: 4px;
+}
+.editBtn:hover {
+background-color: #0056b3;
+}
+
+.deleteBtn {
+background-color: #dc0000;
+color: #ffffff;
+border: none;
+cursor: pointer;
+font-size: 12px;
+
+width: 50px;
+text-align: center;
+margin-top: 10px;
+padding: 5px 0;
+border-radius: 4px;
+}
+.deleteBtn:hover {
+background-color: #a90000;
+}

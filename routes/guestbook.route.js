@@ -12,8 +12,8 @@ const router = express.Router();
 router.get('/', getAllEntries);
 router.post('/', createEntry);
 router.get('/:id', getEntryById);
-router.get('/:id', deleteEntry);
-router.get('/:id', editEntry);
+router.delete('/:id', deleteEntry);
+router.patch('/:id', editEntry);
 
 //공통되는 '/guestbook'은 빼줘도 된다!!  app.js에서 한번에 처리해줬기 때문.
 // router.get('/', (req, res) => {
