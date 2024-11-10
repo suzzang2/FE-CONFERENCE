@@ -40,8 +40,8 @@
             </div>
             <textarea class="message"><%= entry.message %></textarea>
             <div class="entry-buttons">
-              <button onclick="toggleEditForm('<%= entry._id %>')">Cancel</button>
-              <button onclick="editEntry('<%= entry._id %>', this)">Save</button>
+              <button class="editBtn" data-id="<%= entry._id %>">Cancel</button>
+              <button class="saveBtn" data-id="<%= entry._id %>">Save</button>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
   </div>
 </body>
 <script type="module">
-  import { deleteEntry, editEntry, toggleEditForm } from '/manageEntry.js';
+  import { deleteEntry, editEntry, saveEdit, toggleEditForm } from '/manageEntry.js';
 
   // deleteBtn 이벤트 리스너
   document.querySelectorAll('.deleteBtn').forEach(button => {
@@ -65,6 +65,14 @@
     button.addEventListener('click', () => {
       const entryId = button.getAttribute('data-id');
       toggleEditForm(entryId);
+    });
+  });
+
+  //saveBtn 이벤트 리스너
+  document.querySelectorAll('.saveBtn').forEach(button => {
+    button.addEventListener('click', () => {
+      const entryId = button.getAttribute('data-id');
+      saveEdit(entryId);
     });
   });
 </script>

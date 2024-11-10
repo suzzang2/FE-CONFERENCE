@@ -1,4 +1,3 @@
-// manageEntry.js
 export const deleteEntry = async (id) => {
    if (!window.confirm("Are you sure you want to delete this entry?")) return;
 
@@ -25,15 +24,18 @@ export const deleteEntry = async (id) => {
    }
 };
 
-export const editEntry = async (id, element) => {
-   // 입력 필드에서 새로운 author와 message 값을 가져옵니다.
-   const entry = document.getElementById(id);
+export const saveEdit = (entryId) => {
+   const entry = document.getElementById(entryId);
    const newAuthor = entry.querySelector('.edit-form .author').value;
    const newMessage = entry.querySelector('.edit-form .message').value;
 
+   editEntry(entryId, newAuthor, newMessage);
+};
+
+export const editEntry = async (id, newAuthor, newMessage) => {
    try {
       const response = await fetch(`/guestbook/${id}`, {
-         method: 'PUT',  
+         method: 'PATCH',  
          headers: {
             'Content-Type': 'application/json',
          },
@@ -51,14 +53,17 @@ export const editEntry = async (id, element) => {
 
       const result = await response.json();
       alert(result.message); 
-      toggleEditForm(id); // 수정 완료 후 폼을 다시 view mode로 전환
+      
+      // 업데이트 후 수정 폼을 닫고 보기 모드로 전환
+      toggleEditForm(id);
    } catch (error) {
       alert("Error updating entry");
       console.error("Error:", error);
    }
+   location.reload(); 
 };
 
-// toggleEditForm 함수
+
 export const toggleEditForm = (entryId) => {
    const entry = document.getElementById(entryId);
 
@@ -75,7 +80,6 @@ export const toggleEditForm = (entryId) => {
       return;
    }
 
-   // display 스타일을 토글하여 보이기/숨기기
    editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
    viewForm.style.display = viewForm.style.display === 'none' ? 'block' : 'none';
 };

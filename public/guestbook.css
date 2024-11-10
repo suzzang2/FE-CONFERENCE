@@ -118,3 +118,20 @@ border-radius: 4px;
 .deleteBtn:hover {
 background-color: #a90000;
 }
+
+.saveBtn {
+background-color: #007bff;
+color: #ffffff;
+border: none;
+cursor: pointer;
+font-size: 12px;
+
+width: 50px;
+text-align: center;
+margin-top: 10px;
+padding: 5px 0;
+border-radius: 4px;
+}
+.saveBtn:hover {
+background-color: #0056b3;
+}
